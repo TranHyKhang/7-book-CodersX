@@ -1,13 +1,6 @@
-h1 My Books
-a(href="/create") New book
-form(action="/search", method="GET")
-    input(type="text", name="q")
-    button Search
-ul  
-    each book in books
-        li
-            span= book.name
-            span &nbsp
-            a(href="/" + book.id + "/delete") Delete
-            span &nbsp
-            a(href="/" + book.id + "/update") Update
+h1 Book Management
+ul
+    li
+        a(href="/books") View books
+    li
+        a(href="/users") View users
