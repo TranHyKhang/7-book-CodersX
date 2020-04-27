@@ -1,4 +1,7 @@
-h1 Create users
-form(action="/users/create", method="POST")
-    input(type="text", name="name")
-    button Create
+extends ../layouts/common
+
+block content
+    h1 Create users
+    form(action="/users/create", method="POST")
+        input(type="text", name="name")
+        button(class="btn btn-primary ml-2") Create

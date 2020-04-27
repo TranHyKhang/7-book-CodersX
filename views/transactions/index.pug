@@ -1,14 +1,17 @@
-h1 Transaction
-a(href="/transactions/create") New transaction
-ul
-    each tran in trans
-        li
-            span=tran.userName + ":"
-            span &nbsp
-            span=tran.bookName
-            span &nbsp
-            a(href="/transactions/" + tran.id + "/complete") Complete
-            span &nbsp
-            a(href="/transactions/" + tran.id + "/delete") Delete
+extends ../layouts/common
 
-a(href="/") Back
+block content
+    h1 Transaction
+    a(class="btn btn-primary mt-2", href="/transactions/create") New transaction
+    ul
+        each tran in trans
+            li
+                span=tran.userName + ":"
+                span &nbsp
+                span=tran.bookName
+                span &nbsp
+                a(class="btn btn-primary mt-2", href="/transactions/" + tran.id + "/complete") Complete
+                span &nbsp
+                a(class="btn btn-primary mt-2", href="/transactions/" + tran.id + "/delete") Delete
+
+    a(class="btn btn-primary mt-2", href="/") Back

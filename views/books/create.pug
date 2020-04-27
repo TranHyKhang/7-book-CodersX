@@ -1,10 +1,13 @@
-h1 Create new book
-form(action="/books/create", method="POST")
-    label Name
-    input(type="text", name="name")
-    span &nbsp
-    label Description
-    input(type="text", name="desc")
-    span &nbsp
-    button Create
+extends ../layouts/common
+
+block content
+    h1 Create new book
+    form(action="/books/create", method="POST")
+        label Name
+        input(type="text", name="name")
+        span &nbsp
+        label Description
+        input(type="text", name="desc")
+        span &nbsp
+        button(class="btn btn-primary ml-2") Create
     

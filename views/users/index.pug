@@ -1,18 +1,21 @@
-h1 Users
-a(href="/users/create") New user
-form(action="/users/search", method="GET")
-    input(type="text", name="q")
-    button Search
+extends ../layouts/common
 
-ul  
-    each user in users
-        li 
-            span= user.name
-            span &nbsp
-            a(href="/users/" + user.id + "/delete") Delete
-            span &nbsp
-            a(href="/users/"+ user.id + "/update") Update
+block content
+    h1 Users
+    a(class="btn btn-primary mt-2", href="/users/create") New user
+    form(action="/users/search", method="GET")
+        input(type="text", name="q")
+        button(class="btn btn-primary ml-2") Search
 
-a(href="/") Back
+    ul 
+        each user in users
+            li 
+                span= user.name
+                span &nbsp
+                a(class="btn btn-primary mt-2", href="/users/" + user.id + "/delete") Delete
+                span &nbsp
+                a(class="btn btn-primary mt-2", href="/users/"+ user.id + "/update") Update
+
+    a(class="btn btn-primary mt-2", href="/") Back
 
             

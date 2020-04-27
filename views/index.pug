@@ -1,9 +1,8 @@
-h1 Book Management
-ul
-    li
-        a(href="/books") View books
-    li
-        a(href="/users") View users
-    li
-        a(href="/transactions") View transactions
+extends ./layouts/common
+
+block content
+    h1 Book Management
+    a(class="btn btn-primary mt-2 mr-2", href="/books") View books
+    a(class="btn btn-primary mt-2 mr-2", href="/users") View users
+    a(class="btn btn-primary mt-2 mr-2", href="/transactions") View transactions
     

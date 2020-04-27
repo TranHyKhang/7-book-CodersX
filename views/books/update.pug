@@ -1,5 +1,8 @@
-h1 New title
-form(action="/books/update", method="POST")
-    input(type="text", hidden, name="id", value=id)
-    input(type="text", name="name")
-    button Change
+extends ../layouts/common
+
+block content
+    h1 New title
+    form(action="/books/update", method="POST")
+        input(type="text", hidden, name="id", value=id)
+        input(type="text", name="name")
+        button(class="btn btn-primary ml-2") Change
