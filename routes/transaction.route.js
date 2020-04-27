@@ -10,7 +10,10 @@ router.get('/create', controller.create);
 
 router.post('/create', controller.postCreate);
 
-// Delete 
+// complete 
+router.get('/:id/complete', controller.complete);
+
+// Delete
 router.get('/:id/delete', controller.delete);
 
 

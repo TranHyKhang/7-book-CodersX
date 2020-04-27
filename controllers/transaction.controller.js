@@ -18,6 +18,7 @@ module.exports.create = function(req, res) {
 
 module.exports.postCreate = function(req, res) {
     req.body.id = shortid.generate();
+    req.body.isComplete = "false";
     db.get('trans').push(req.body).write();
     res.redirect('/transactions');
 };
@@ -26,6 +27,15 @@ module.exports.postCreate = function(req, res) {
 module.exports.delete = function(req, res) {
     var id = req.params.id;
     db.get('trans').remove({id: id}).write();
+    res.render('transactions/index', {
+        trans: db.get('trans').value()
+    });
+};
+
+// Complete
+module.exports.complete = function(req, res) {
+    var id = req.params.id;
+    db.get('trans').find({id: id}).assign({isComplete: "true"}).write();
     res.render('transactions/index', {
         trans: db.get('trans').value()
     });

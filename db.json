@@ -39,22 +39,14 @@
     {
       "userName": "Khang hy",
       "bookName": "Truyện Cười",
-      "id": "7DyF8gPJR"
-    },
-    {
-      "userName": "Minh Thu",
-      "bookName": "Truyện ma",
-      "id": "VXyVb5IVs"
-    },
-    {
-      "userName": "Khang hy",
-      "bookName": "pikachu",
-      "id": "ZDqHRajSG"
+      "id": "esiRgmhef",
+      "isComplete": "true"
     },
     {
       "userName": "Hy Hy",
-      "bookName": "Doraemon",
-      "id": "B7DHkEQyT"
+      "bookName": "Truyện ma",
+      "id": "eVieNradt",
+      "isComplete": "true"
     }
   ]
 }
