@@ -1,11 +1,18 @@
 h1 Users
 a(href="/users/create") New user
-//- form(action="", method="GET")
-//-     input(type="text", name="q")
-//-     button Search
+form(action="/users/search", method="GET")
+    input(type="text", name="q")
+    button Search
 
 ul  
     each user in users
         li 
             span= user.name
+            span &nbsp
+            a(href="/users/" + user.id + "/delete") Delete
+            span &nbsp
+            a(href="/users/"+ user.id + "/update") Update
+
+a(href="/") Back
+
             
