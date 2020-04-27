@@ -1,0 +1,12 @@
+h1 Transaction
+a(href="/transactions/create") New transaction
+ul
+    each tran in trans
+        li
+            span=tran.userName + ":"
+            span &nbsp
+            span=tran.bookName
+            span &nbsp
+            a(href="/transactions/" + tran.id + "/delete") Delete
+
+a(href="/") Back
