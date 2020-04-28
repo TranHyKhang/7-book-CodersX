@@ -35,7 +35,7 @@ module.exports.delete = function(req, res) {
 // Complete
 module.exports.complete = function(req, res) {
     var id = req.params.id;
-    db.get('trans').find({id: id}).assign({isComplete: "true"}).write();
+    db.get('trans').find({id: id}).assign({isComplete: "true"}).write(); 
     res.render('transactions/index', {
         trans: db.get('trans').value()
     });

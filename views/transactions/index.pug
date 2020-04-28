@@ -2,16 +2,18 @@ extends ../layouts/common
 
 block content
     h1 Transaction
-    a(class="btn btn-primary mt-2", href="/transactions/create") New transaction
-    ul
+    a.mb-3(class="btn btn-primary mt-2", href="/transactions/create") New transaction
+    table.table  
+        tr
+            th User
+            th Book Borrowed
         each tran in trans
-            li
-                span=tran.userName + ":"
-                span &nbsp
-                span=tran.bookName
-                span &nbsp
-                a(class="btn btn-primary mt-2", href="/transactions/" + tran.id + "/complete") Complete
-                span &nbsp
-                a(class="btn btn-primary mt-2", href="/transactions/" + tran.id + "/delete") Delete
+            tr
+                td=tran.userName
+                td=tran.bookName
+                td     
+                    a(class="btn btn-primary mt-2", href="/transactions/" + tran.id + "/complete") Complete
+                td
+                    a(class="btn btn-primary mt-2", href="/transactions/" + tran.id + "/delete") Delete
 
     a(class="btn btn-primary mt-2", href="/") Back
