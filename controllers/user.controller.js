@@ -8,9 +8,15 @@ module.exports.index = function(req, res) {
     });
 };
 
+// // Count cookie
+// module.exports.generateCookie = function(req, res, next) {
+//     res.cookie('user-id', 12345);
+//     res.send('hello');
+// };
+
 // Create
 module.exports.create = function(req, res) {
-    res.render('users/create')
+    res.render('users/create');
 };
 
 module.exports.postCreate = function(req, res) {
