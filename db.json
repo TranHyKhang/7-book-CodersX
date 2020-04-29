@@ -25,7 +25,14 @@
     {
       "name": "Hy Khang",
       "phone": "0933308108",
-      "id": "uIxAiwgQg"
+      "id": "uIxAiwgQg",
+      "email": "tranhykhang8108@gmail.com",
+      "password": "hyhyk2209"
+    },
+    {
+      "name": "Minh Thu",
+      "phone": "0902907956",
+      "id": "DE5PmULpl"
     }
   ],
   "trans": [

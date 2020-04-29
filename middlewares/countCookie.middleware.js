@@ -13,7 +13,7 @@ module.exports.countCookie = (req, res, next) => {
       var count = parseInt(req.cookies.count); 
       count++;
       res.cookie('count', count);
-      console.log(`count: ${count}`);
+      console.log(`count: ${count}`); 
     }
     
     next();

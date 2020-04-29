@@ -7,6 +7,9 @@ const port = 3000;
 var bookRoute = require('./routes/book.route');
 var userRoute = require('./routes/user.route');
 var transactionRoute = require('./routes/transaction.route');
+var authRoute = require('./routes/auth.route');
+var authMiddleware = require('./middlewares/auth.middleware');
+
 
 app.set('view engine', 'pug');
 app.set('views', './views');
@@ -20,8 +23,9 @@ app.get('/', function(req, res) {
     res.render('index');
 })
 
-app.use('/books', bookRoute);
-app.use('/users', userRoute);
-app.use('/transactions', transactionRoute);
+app.use('/books', authMiddleware.requireAuth, bookRoute);
+app.use('/users', authMiddleware.requireAuth, userRoute);
+app.use('/transactions', authMiddleware.requireAuth, transactionRoute);
+app.use('/auth', authRoute);
 
 app.listen(port);
