@@ -1,10 +1,10 @@
 var shortid = require('shortid');
 var db = require('../db');
-var md5 = require('md5');
+// var md5 = require('md5');
+var bcrypt = require('bcrypt');
 // Index
 module.exports.index = function(req, res) {
     var user = db.get('users').find({id: req.cookies.userId}).value();
-    console.log(user);
     res.render('users/index', {
         usersMatched: [user]
     });
@@ -23,8 +23,13 @@ module.exports.create = function(req, res) {
 
 module.exports.postCreate = function(req, res) {
     req.body.id = shortid.generate();
-    req.body.password = md5(req.body.password);
-    db.get('users').push(req.body).write();
+    bcrypt.hash(req.body.password, 10, function(err, hash) {
+        // Store hash in your password DB.
+        req.body.password = hash;
+        db.get('users').push(req.body).write();
+    });
+    
+    
     res.redirect('/users');
 };
 
