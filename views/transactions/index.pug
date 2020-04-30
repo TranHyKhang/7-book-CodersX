@@ -12,8 +12,8 @@ block content
                 td=tran.userName
                 td=tran.bookName
                 td     
-                    a(class="btn btn-primary mt-2", href="/transactions/" + tran.id + "/complete") Complete
+                    a(class="btn btn-primary mt-2", href="/transactions/" + tran.idBorrowed + "/complete") Complete
                 td
-                    a(class="btn btn-primary mt-2", href="/transactions/" + tran.id + "/delete") Delete
+                    a(class="btn btn-primary mt-2", href="/transactions/" + tran.idBorrowed + "/delete") Delete
 
     a(class="btn btn-primary mt-2", href="/") Back

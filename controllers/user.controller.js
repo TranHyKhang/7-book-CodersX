@@ -3,8 +3,10 @@ var db = require('../db');
 
 // Index
 module.exports.index = function(req, res) {
+    var user = db.get('users').find({id: req.cookies.userId}).value();
+    console.log(user);
     res.render('users/index', {
-        users: db.get('users').value()
+        usersMatched: [user]
     });
 };
 

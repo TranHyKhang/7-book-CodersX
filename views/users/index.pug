@@ -11,15 +11,15 @@ block content
     table.table 
         tr 
             th Name
-            th Phone
-        each user in users
-            tr 
-                td= user.name
-                td= user.phone 
-                td
-                    a(class="btn btn-primary mt-2", href="/users/" + user.id + "/delete") Delete
-                td
-                    a(class="btn btn-primary mt-2", href="/users/"+ user.id + "/update") Update
+            th Phone   
+            each user in usersMatched
+                tr 
+                    td= user.name
+                    td= user.phone 
+                    td
+                        a(class="btn btn-primary mt-2", href="/users/" + user.id + "/delete") Delete
+                    td
+                        a(class="btn btn-primary mt-2", href="/users/"+ user.id + "/update") Update
 
     a(class="btn btn-primary mt-2", href="/") Back
 
