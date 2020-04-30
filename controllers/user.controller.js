@@ -1,6 +1,6 @@
 var shortid = require('shortid');
 var db = require('../db');
-
+var md5 = require('md5');
 // Index
 module.exports.index = function(req, res) {
     var user = db.get('users').find({id: req.cookies.userId}).value();
@@ -23,6 +23,7 @@ module.exports.create = function(req, res) {
 
 module.exports.postCreate = function(req, res) {
     req.body.id = shortid.generate();
+    req.body.password = md5(req.body.password);
     db.get('users').push(req.body).write();
     res.redirect('/users');
 };

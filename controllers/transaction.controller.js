@@ -36,8 +36,7 @@ module.exports.delete = function(req, res) {
     var userTran = db.get('trans').value()
     var newArr = userTran.filter(user => {
         return user.id === req.cookies.userId;
-    });
-    console.log(newArr);
+    })
     res.render('transactions/index', {
         trans: newArr
     });
