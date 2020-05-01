@@ -23,91 +23,45 @@
   ],
   "users": [
     {
-      "name": "Hy Khang",
-      "phone": "0933308108",
-      "id": "uIxAiwgQg",
-      "email": "tranhykhang8108@gmail.com",
-      "password": "hyhyk2209"
+      "name": "b",
+      "phone": "b",
+      "email": "b",
+      "password": "$2b$10$OknuoxEKn4MATf5BazIwyOAypdbSKbRa5pFtpWL51pLHCXP33730S",
+      "id": "byx0U33yG",
+      "isAdmin": "false",
+      "wrongLoginCount": 0
     },
     {
-      "name": "Minh Thư",
-      "phone": "0902907956",
-      "email": "minhthu@gmail.com",
-      "password": "123123",
-      "id": "BnRtNtR5q"
-    },
-    {
-      "name": "Hy Hy",
-      "phone": "0909123456",
-      "email": "hyhy@gmail.com",
-      "password": "456456",
-      "id": "SIYwsKcu1"
-    },
-    {
-      "name": "Hy Hy Khang",
-      "phone": "090809090808",
-      "email": "hykhang@gmail.com",
-      "password": "789789",
-      "id": "vPnZelspW"
-    },
-    {
-      "name": "Khang Hy",
-      "phone": "0987654321",
-      "email": "khanghy@gmail.com",
-      "password": "229229",
-      "id": "TFakyYxC3"
-    },
-    {
-      "name": "hhhhhhhhhhhhhhhhhhhhhhhhhhh",
-      "phone": "dsssssssssssssss",
-      "email": "hahaha",
-      "password": "4297f44b13955235245b2497399d7a93",
-      "id": "isprWyO_Z"
-    },
-    {
-      "name": "dsadsadasdasdasd",
-      "phone": "00000000000000000",
-      "email": "hyhykaka",
-      "password": "123456123456",
-      "id": "OZy5wiXRN"
-    },
-    {
-      "name": "ddddddddddaaaaaaaaaaaaa",
-      "phone": "dddddddddddddddddd",
-      "email": "hyhykaka",
-      "password": "$2b$10$904m54Ub4YKQUzTyWggB.eflrHm19dOQ42D3IXgOra/1Rpw3jgwxm",
-      "id": "LLc6hRS1y"
-    },
-    {
-      "name": "hy",
-      "phone": "das",
-      "email": "hy",
-      "password": "$2b$10$K61WjESZGDvrnFRx9nK8eu.waznftzrKA24ZjQsiKsxo0WYJ99hq2",
-      "wrongLoginCount": 0,
-      "id": "Z0NlyWq8S"
+      "name": "q",
+      "phone": "q",
+      "email": "q",
+      "password": "$2b$10$PilJt5h5CwwiK6h5u0iME.3se5X6nLh2VRNvqbfbiVOcUvdXBlvM.",
+      "id": "xFPfMUBSX",
+      "isAdmin": "true",
+      "wrongLoginCount": 0
     }
   ],
   "trans": [
     {
-      "userName": "Hy Khang",
-      "bookName": "Truyện Cười",
-      "id": "uIxAiwgQg",
-      "idBorrowed": "FVCYHJEu5",
+      "userName": "b",
+      "bookName": "Doraemon",
+      "id": "byx0U33yG",
+      "idBorrowed": "8ypvMtkf1",
       "isComplete": "true"
     },
     {
-      "userName": "Hy Hy",
+      "userName": "b",
       "bookName": "Truyện Cười",
-      "id": "SIYwsKcu1",
-      "idBorrowed": "C8naWEwDs",
-      "isComplete": "false"
+      "id": "byx0U33yG",
+      "idBorrowed": "kkDwAB2eC",
+      "isComplete": "true"
     },
     {
-      "userName": "Hy Khang",
-      "bookName": "Truyện Cười",
-      "id": "uIxAiwgQg",
-      "idBorrowed": "TRHExjDT1",
-      "isComplete": "false"
+      "userName": "b",
+      "bookName": "pikachu",
+      "id": "byx0U33yG",
+      "idBorrowed": "L5AxWXciB",
+      "isComplete": "true"
     }
   ]
 }

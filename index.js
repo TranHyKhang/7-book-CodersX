@@ -9,6 +9,7 @@ var userRoute = require('./routes/user.route');
 var transactionRoute = require('./routes/transaction.route');
 var authRoute = require('./routes/auth.route');
 var authMiddleware = require('./middlewares/auth.middleware');
+// const mainauthMiddleware = require("./middlewares/authmain.middleware");
 
 
 app.set('view engine', 'pug');
@@ -16,7 +17,7 @@ app.set('views', './views');
 
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(cookieParser());
+app.use(cookieParser('afsadsakdjsakjfasjflassa'));
 
 app.use(express.static('public'));
 app.get('/', function(req, res) {
@@ -24,7 +25,7 @@ app.get('/', function(req, res) {
 })
 
 app.use('/books', authMiddleware.requireAuth, bookRoute);
-app.use('/users', authMiddleware.requireAuth, userRoute);
+app.use('/users',  authMiddleware.requireAuth, userRoute);
 app.use('/transactions', authMiddleware.requireAuth, transactionRoute);
 app.use('/auth', authRoute);
 

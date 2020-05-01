@@ -37,8 +37,10 @@ module.exports.postLogin = function(req, res) {
             });
             return;
         }
-        res.cookie('userId', user.id);
+        res.cookie('userId', user.id, {
+            signed: true
+        });
         db.get('users').find({email: email}).assign({wrongLoginCount: 0}).write();
         res.redirect('/users');
     })
-}
+} 

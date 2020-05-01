@@ -4,10 +4,17 @@ var db = require('../db');
 var bcrypt = require('bcrypt');
 // Index
 module.exports.index = function(req, res) {
-    var user = db.get('users').find({id: req.cookies.userId}).value();
-    res.render('users/index', {
-        usersMatched: [user]
-    });
+    var user = db.get('users').find({id: req.signedCookies.userId}).value();
+    if(user.isAdmin == "false"){
+        res.render('users/index', {
+            users: [user]
+        });
+    } else {
+        res.render('users/index', {
+            users: db.get('users').value()
+        })
+    }
+    
 };
 
 // // Count cookie
@@ -23,6 +30,7 @@ module.exports.create = function(req, res) {
 
 module.exports.postCreate = function(req, res) {
     req.body.id = shortid.generate();
+    req.body.isAdmin = "false";
     bcrypt.hash(req.body.password, 10, function(err, hash) {
         // Store hash in your password DB.
         req.body.password = hash;
