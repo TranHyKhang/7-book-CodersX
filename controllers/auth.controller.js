@@ -20,21 +20,25 @@ module.exports.postLogin = function(req, res) {
         return;
     }
     // var hashPassword = md5(password);
-    bcrypt.genSalt(10, function(err, salt) {
-        bcrypt.hash(password, salt, function(err, hash) {
-            if(user.password !== password ) {
-                res.render('auth/login', {
-                    errors: [
-                        "Wrong password !!!"
-                    ],
-                    values: req.body
-                });
+    bcrypt.compare(password, user.password, function(err, result) {
+        var count = user.wrongLoginCount;
+        if(!result) {
+            count++;
+            db.get('users').find({email: email}).assign({wrongLoginCount: count}).write();
+            if(count >= 4) {
+                res.send('Nhap sai qua nhieu lan!!');
                 return;
             }
-        });
-    });
-    
-    res.cookie('userId', user.id);
-    res.redirect('/users');
-
+            res.render('auth/login', {
+                errors: [
+                    "Wrong password !!!"
+                ],
+                values: req.body
+            });
+            return;
+        }
+        res.cookie('userId', user.id);
+        db.get('users').find({email: email}).assign({wrongLoginCount: 0}).write();
+        res.redirect('/users');
+    })
 }
