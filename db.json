@@ -38,7 +38,15 @@
       "password": "$2b$10$PilJt5h5CwwiK6h5u0iME.3se5X6nLh2VRNvqbfbiVOcUvdXBlvM.",
       "id": "xFPfMUBSX",
       "isAdmin": "true",
-      "wrongLoginCount": 0
+      "wrongLoginCount": 4
+    },
+    {
+      "name": "a",
+      "phone": "a",
+      "email": "a",
+      "password": "$2b$10$AYTIuqV1xbSXD9md1.b9HeCkG4pwwlE1z/9Z6cLQ.oObSnF.50iVS",
+      "id": "lgjwm01V6",
+      "isAdmin": "false"
     }
   ],
   "trans": [

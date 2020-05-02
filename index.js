@@ -1,8 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
 
 const port = 3000;
+console.log(process.env.SESSION_SECRET)
 // var db = require('./db');
 var bookRoute = require('./routes/book.route');
 var userRoute = require('./routes/user.route');
@@ -17,7 +19,7 @@ app.set('views', './views');
 
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(cookieParser('afsadsakdjsakjfasjflassa'));
+app.use(cookieParser(process.env.SESSION_SECRET));
 
 app.use(express.static('public'));
 app.get('/', function(req, res) {
