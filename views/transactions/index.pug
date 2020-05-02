@@ -16,4 +16,17 @@ block content
                 td
                     a(class="btn btn-primary mt-2", href="/transactions/" + tran.idBorrowed + "/delete") Delete
 
+        nav(aria-label='Page navigation example')
+            ul.pagination.justify-content-end
+                li.page-item.disabled
+                a.page-link(href='?page=' + goToFirst) first
+                li.page-item
+                a.page-link(href='?page=' + leftNum)=leftNum
+                li.page-item
+                a.page-link(href='?page=' + mainNum)=mainNum
+                li.page-item
+                a.page-link(href='?page=' + rightNum)=rightNum
+                li.page-item
+                a.page-link(href='?page=' + goToLast) Last
+
     a(class="btn btn-primary mt-2", href="/") Back

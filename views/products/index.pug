@@ -1,0 +1,23 @@
+extends ../layouts/common
+
+block content
+    nav(aria-label='Page navigation example')
+        ul.pagination.justify-content-end
+            li.page-item.disabled
+            a.page-link(href='?page=' + goToFirst) first
+            li.page-item
+            a.page-link(href='?page=' + leftNum)=leftNum
+            li.page-item
+            a.page-link(href='?page=' + mainNum)=mainNum
+            li.page-item
+            a.page-link(href='?page=' + rightNum)=rightNum
+            li.page-item
+            a.page-link(href='?page=' + goToLast) Last
+    .d-flex.justify-content-around.flex-wrap
+        each product in products
+            .card.m-4(style='width: 18rem;')
+                img.card-img-top(src=product.image, alt='Card image cap')
+                .card-body
+                h5.card-title= product.name
+                p.card-text
+                a.btn.btn-primary(href='#') Buy
