@@ -19,6 +19,12 @@
       "name": "pikachu",
       "desc": "pika",
       "id": "SIaoGnsIB"
+    },
+    {
+      "name": "haha",
+      "desc": "haha",
+      "id": "4VFW0mieI",
+      "coverUrl": "uploads/b0a521a89ad64a4b086966ab3a7ba884"
     }
   ],
   "users": [
@@ -772,6 +778,14 @@
       "name": "Bacardi Mojito",
       "image": "https://loremflickr.com/320/240",
       "description": "vel augue vestibulum rutrum rutrum neque aenean auctor gravida sem praesent id massa id nisl venenatis lacinia aenean sit amet"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "rBjeVS75U",
+      "cart": {
+        "fa83edc7-5644-485e-a2f8-719d7c4c2da7": 1
+      }
     }
   ]
 }

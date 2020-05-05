@@ -7,6 +7,12 @@ module.exports.index = function(req, res) {
     var start = (page - 1) * perPage;
     //end = (n - 1) * x + x = n * x;
     var end = page * perPage;
+
+    // Count cart
+    // var a = db.get('sessions').find({id: req.signedCookies.sessionId}).get('cart.')
+    // console.log(a);
+
+
     res.render('products/index', {
         products: db.get('products').value().slice(start, end)
     })

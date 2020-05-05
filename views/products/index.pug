@@ -1,6 +1,9 @@
 extends ../layouts/common
 
 block content
+    span Cart
+    span &nbsp
+    span="(" + haha + ")"
     nav(aria-label='Page navigation example')
         ul.pagination.justify-content-end
             li.page-item.disabled
@@ -20,4 +23,4 @@ block content
                 .card-body
                 h5.card-title= product.name
                 p.card-text
-                a.btn.btn-primary(href='#') Buy
+                a.btn.btn-primary(href='/cart/add/' + product.id) Buy

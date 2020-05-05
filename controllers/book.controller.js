@@ -26,7 +26,7 @@ module.exports.create = function(req, res) {
 
 module.exports.postCreate = function(req, res) {
     req.body.id = shortid.generate();
-    
+    req.body.coverUrl = req.file.path.split('\\').slice(1).join('/');
     db.get('books').push(req.body).write();
     res.redirect('/books');
 };
