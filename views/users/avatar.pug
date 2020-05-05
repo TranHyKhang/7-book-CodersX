@@ -1,0 +1,8 @@
+extends ../layouts/common
+
+block content
+    form(action="/users/avatar", method="POST", enctype="multipart/form-data")
+        input.form-control(type="text", name="id", value=user.id, hidden)
+        input.form-control-file(type="file", name="avatar")
+        button(class="btn btn-primary mt-2") Submit
+

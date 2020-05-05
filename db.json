@@ -23,15 +23,6 @@
   ],
   "users": [
     {
-      "name": "b",
-      "phone": "b",
-      "email": "b",
-      "password": "$2b$10$OknuoxEKn4MATf5BazIwyOAypdbSKbRa5pFtpWL51pLHCXP33730S",
-      "id": "byx0U33yG",
-      "isAdmin": "false",
-      "wrongLoginCount": 0
-    },
-    {
       "name": "q",
       "phone": "q",
       "email": "q",
@@ -41,12 +32,23 @@
       "wrongLoginCount": 0
     },
     {
-      "name": "a",
-      "phone": "a",
-      "email": "a",
-      "password": "$2b$10$AYTIuqV1xbSXD9md1.b9HeCkG4pwwlE1z/9Z6cLQ.oObSnF.50iVS",
-      "id": "lgjwm01V6",
-      "isAdmin": "false"
+      "name": "",
+      "phone": "0933308108",
+      "email": "b",
+      "password": "$2b$10$TPenR3es3VbYBFVknajgluModHiWuziCxRBPVnaGWZL0Y0DTadR32",
+      "id": "5-JI-XRrG",
+      "isAdmin": "false",
+      "wrongLoginCount": 0,
+      "avatar": "http://res.cloudinary.com/tran-hy-khang/image/upload/v1/avatarCodersX/5-JI-XRrG"
+    },
+    {
+      "name": "Hy Khang Tran",
+      "phone": "0933308108",
+      "email": "c",
+      "password": "$2b$10$K1z2d/H06FKdE9/hiZzV0.GPX0yZnrxyzgJa9um4FidKb4AhADDPu",
+      "id": "lVOARJdAT",
+      "isAdmin": "false",
+      "avatar": "http://res.cloudinary.com/tran-hy-khang/image/upload/v1/avatarCodersX/lVOARJdAT"
     }
   ],
   "trans": [

@@ -9,7 +9,6 @@ module.exports.index = function(req, res) {
     });
     // Pagination
     var page = parseInt(req.query.page)||1; //n (Trang thu n)
-    console.log(page);
     var perPage = 5; //x (So san pahm trong 1 trang)
     //start = (n - 1) * x;
     var start = (page - 1) * perPage;

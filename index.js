@@ -24,12 +24,13 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 app.use(cookieParser(process.env.SESSION_SECRET));
 
 app.use(express.static('public'));
+
 app.get('/', function(req, res) {
     res.render('index');
 })
 
 app.use('/books', authMiddleware.requireAuth, bookRoute);
-app.use('/users',  authMiddleware.requireAuth, userRoute);
+app.use('/users', authMiddleware.requireAuth, userRoute);
 app.use('/transactions', authMiddleware.requireAuth,transPaginateMiddleware.countPage, transactionRoute);
 app.use('/auth', authRoute);
 app.use('/product',productMiddleware.countPage, productRoute);

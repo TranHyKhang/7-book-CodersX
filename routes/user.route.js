@@ -1,7 +1,13 @@
 var express = require('express');
+
+var multer  = require('multer');
+
 var router = express.Router();
 var controller = require('../controllers/user.controller');
 var validate = require('../validate/user.validate');
+
+
+var upload = multer({ dest: './public/uploads/' })
 
 // var countCookie = require('../middlewares/countCookie.middleware');
 
@@ -14,7 +20,7 @@ router.get('/', controller.index);
 // Create user
 router.get('/create', controller.create);
 
-router.post('/create', validate.postCreate, controller.postCreate);
+router.post('/create', upload.single('avatar'), validate.postCreate, controller.postCreate);
 
 // Search user
 router.get('/search', controller.search);
@@ -26,5 +32,9 @@ router.get('/:id/delete', controller.delete);
 router.get('/:id/update', controller.update);
 
 router.post('/update', controller.postUpdate);
+
+// Change avatar
+router.get('/:id/avatar', controller.changeAvatar);
+router.post('/avatar', upload.single('avatar'), controller.postChangeAvatar);
 
 module.exports = router;
