@@ -34,11 +34,12 @@ app.get('/', function(req, res) {
     res.render('index');
 })
 
-app.use('/books', bookRoute);
+app.use('/books',countMiddleware.countCart, bookRoute);
 app.use('/users', authMiddleware.requireAuth, userRoute);
 app.use('/transactions', authMiddleware.requireAuth,transPaginateMiddleware.countPage, transactionRoute);
 app.use('/auth', authRoute);
-app.use('/products',productMiddleware.countPage,countMiddleware.countCart, productRoute);
+// check countCart.middleware if use /products
+app.use('/products',productMiddleware.countPage, productRoute);
 app.use('/cart', cartRoute);
 
 app.listen(port);

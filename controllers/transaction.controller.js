@@ -50,3 +50,45 @@ module.exports.complete = function(req, res) {
     db.get('trans').find({idBorrowed: id}).assign({isComplete: "true"}).write(); 
     res.redirect('/transactions');
 };
+
+// Borrow book
+module.exports.borrowBook = function(req, res) {
+    var sessionId = req.signedCookies.sessionId;
+    var userId = req.signedCookies.userId;
+    var user = db.get('bookSessions').find({id: sessionId}).value();
+    db.get('trans').push(user).write();
+    db.get('trans').find({id: sessionId}).assign({id: userId}).write();
+    //db.get('bookSessions').remove({id: sessionId}).write();
+
+    var userBorrowed = db.get('trans').find({id: userId}).value();
+    var a = db.get('users').find({id: userBorrowed.id}).value();
+
+    function getObjectKey(obj) {
+        // Write code here...
+        var newArr = [];
+        for (var x in obj) {
+          //console.log(obj[x]);
+          newArr.push(x);
+          if (typeof obj[x] == 'object') {
+            newArr = newArr.concat(getObjectKey(obj[x]));
+          }
+        }
+        return newArr;
+    }
+
+    var arr = getObjectKey(userBorrowed).slice(2);
+    var arrBook = [];
+    for(var i = 0; i < arr.length; i++) {
+        arrBook.push(db.get('books').find({id: arr[i]}).value());
+    }
+    console.log('=======================')
+    console.log(a);
+    console.log('==================');
+    console.log(arrBook.length);
+
+
+    res.render('transactions/index', {
+        books: arrBook,
+        users: [a]
+    })
+}

@@ -23,4 +23,7 @@ router.get('/:id/delete', controller.delete);
 router.get('/:id/update', controller.update);
 router.post('/update', controller.postUpdate);
 
+// Add book to cart
+router.get('/cart/add/:bookId', controller.addToCart);
+
 module.exports = router;

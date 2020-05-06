@@ -8,8 +8,8 @@ module.exports = function(req, res, next) {
         res.cookie('sessionId', sessionId, {
             signed: true
         });
-
-        db.get('sessions').push({
+        // get('sessions') if use /products
+        db.get('bookSessions').push({
             id: sessionId
         }).write();
     }

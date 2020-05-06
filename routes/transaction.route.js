@@ -16,5 +16,8 @@ router.get('/:id/complete', controller.complete);
 // Delete
 router.get('/:id/delete', controller.delete);
 
+// Borrow book
+router.post('/', controller.borrowBook)
+
 
 module.exports = router;
