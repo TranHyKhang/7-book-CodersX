@@ -18,7 +18,7 @@ block content
         each book in books
             tr
                 td
-                    img(src=book.coverUrl, width="64")
+                    img(src="/" + book._doc.coverUrl, width="64")
                 td= book.name
                 td
                     a(class="btn btn-primary mt-2", href="/books/" + book.id + "/delete") Delete

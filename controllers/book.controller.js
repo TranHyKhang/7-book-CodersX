@@ -1,17 +1,20 @@
 var db = require('../db');
 var shortid = require('shortid');
+var Book = require('../models/book.model');
 
 // index
-module.exports.index = function(req, res) {
+module.exports.index = async function(req, res) {
+    var book = await Book.find()
     res.render('books/index', {
-        books: db.get('books').value()
+        books: book
     });
 };
 
 // Search
-module.exports.search =  function(req, res) {
+module.exports.search = async function(req, res) {
     var q = req.query.q;
-    var matchedBook = db.get('books').value().filter(book => {
+    var a = await Book.find();
+    var matchedBook = a.filter(book => {
         return book.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
     });
     res.render('books/index', {
@@ -24,18 +27,26 @@ module.exports.create = function(req, res) {
     res.render('books/create');
 };
 
-module.exports.postCreate = function(req, res) {
-    req.body.id = shortid.generate();
-    req.body.coverUrl = req.file.path.split('\\').slice(1).join('/');
-    db.get('books').push(req.body).write();
+module.exports.postCreate = async function(req, res) {
+    //req.body.id = shortid.generate();
+    var data = req.file.path.split('\\').slice(1).join('/');
+    //db.get('books').push(req.body).write();
+    var newBook = new Book({
+        name: req.body.name,
+        description: req.body.desc,
+        coverUrl: data
+    });
+    await newBook.save();
     res.redirect('/books');
 };
 
 // Delete
-module.exports.delete = function(req, res) {
+module.exports.delete = async function(req, res) {
     var id = req.params.id;
-    var delBook = db.get('books').find({id: id}).value();
-    db.get('books').remove({id: delBook.id}).write();
+    // var delBook = db.get('books').find({id: id}).value();
+    // db.get('books').remove({id: delBook.id}).write();
+    await Book.remove({_id: id});
+
     res.redirect('/books')
 };
 
@@ -45,8 +56,9 @@ module.exports.update = function(req, res) {
     res.render('books/update',{id});
 };
 
-module.exports.postUpdate = function(req, res) {
-    db.get('books').find({id: req.body.id}).assign({name: req.body.name}).write();
+module.exports.postUpdate = async function(req, res) {
+    //db.get('books').find({id: req.body.id}).assign({name: req.body.name}).write();
+    await Book.updateOne({ _id: req.body.id }, { $set :{ name: req.body.name }});
     res.redirect('/books');
 };
 

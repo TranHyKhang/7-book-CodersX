@@ -81,12 +81,6 @@ module.exports.borrowBook = function(req, res) {
     for(var i = 0; i < arr.length; i++) {
         arrBook.push(db.get('books').find({id: arr[i]}).value());
     }
-    console.log('=======================')
-    console.log(a);
-    console.log('==================');
-    console.log(arrBook.length);
-
-
     res.render('transactions/index', {
         books: arrBook,
         users: [a]

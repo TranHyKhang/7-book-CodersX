@@ -1,6 +1,7 @@
 // var md5 = require('md5');
 var bcrypt = require('bcrypt');
-var db = require('../db');
+// var db = require('../db');
+var User = require('../models/user.model');
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const msg = {
@@ -14,10 +15,10 @@ module.exports.login = function(req, res) {
     res.render('auth/login');
 }
 
-module.exports.postLogin = function(req, res) {
+module.exports.postLogin = async function(req, res) {
     var email = req.body.email; 
     var password = req.body.password;
-    var user = db.get('users').find({email: email}).value();
+    var user = await User.findOne({email});
     if(!user) {
         res.render('auth/login', {
             errors: [
@@ -27,12 +28,12 @@ module.exports.postLogin = function(req, res) {
         });
         return;
     }
-    // var hashPassword = md5(password);
-    bcrypt.compare(password, user.password, function(err, result) {
-        var count = user.wrongLoginCount;
+    bcrypt.compare(password, user.password, async function(err, result) {
+        var count = user._doc.wrongLoginCount;
         if(!result) {
             count++;
-            db.get('users').find({email: email}).assign({wrongLoginCount: count}).write();
+            await User.findOneAndUpdate({email: email},{wrongLoginCount: count});
+            
             if(count >= 4) {
                 res.send('Nhap sai qua nhieu lan!!');
                 sgMail
@@ -54,10 +55,11 @@ module.exports.postLogin = function(req, res) {
             });
             return;
         }
-        res.cookie('userId', user.id, {
+        res.cookie('userId', user._id, {
             signed: true
         });
-        db.get('users').find({email: email}).assign({wrongLoginCount: 0}).write();
+        await User.findOneAndUpdate({email: email},{wrongLoginCount: 0});
+        
         res.redirect('/users');
     })
 } 

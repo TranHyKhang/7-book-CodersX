@@ -1,5 +1,6 @@
 var shortid = require('shortid');
-var db = require('../db');
+var User = require('../models/user.model');
+// var db = require('../db');
 // var md5 = require('md5');
 var bcrypt = require('bcrypt');
 var cloudinary = require('cloudinary').v2;
@@ -8,15 +9,16 @@ cloudinary.config({
 })
 var defaultAvatar = cloudinary.url('default_avatar_fw7ujs.png');
 // Index
-module.exports.index = function(req, res) {
-    var user = db.get('users').find({id: req.signedCookies.userId}).value();
-    if(user.isAdmin == "false"){
+module.exports.index = async function(req, res) {
+    var userMatched = await User.findOne({_id: req.signedCookies.userId});
+    var user = await User.find();
+    if(userMatched.isAdmin == "false"){
         res.render('users/index', {
-            users: [user]
+            users: [userMatched]
         });
     } else {
         res.render('users/index', {
-            users: db.get('users').value()
+            users: user
         })
     }
 };
