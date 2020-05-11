@@ -19,6 +19,7 @@ module.exports.postLogin = async function(req, res) {
     var email = req.body.email; 
     var password = req.body.password;
     var user = await User.findOne({email});
+    console.log(user._doc.wrongLoginCount)
     if(!user) {
         res.render('auth/login', {
             errors: [
@@ -29,10 +30,12 @@ module.exports.postLogin = async function(req, res) {
         return;
     }
     bcrypt.compare(password, user.password, async function(err, result) {
-        var count = user._doc.wrongLoginCount;
+        
         if(!result) {
+            var count = user._doc.wrongLoginCount;
             count++;
-            await User.findOneAndUpdate({email: email},{wrongLoginCount: count});
+            console.log(count)
+            await User.updateOne({email: email},{$set: {wrongLoginCount: count}});
             
             if(count >= 4) {
                 res.send('Nhap sai qua nhieu lan!!');
@@ -58,7 +61,7 @@ module.exports.postLogin = async function(req, res) {
         res.cookie('userId', user._id, {
             signed: true
         });
-        await User.findOneAndUpdate({email: email},{wrongLoginCount: 0});
+        await User.updateOne({email: email},{$set: {wrongLoginCount: 0}});
         
         res.redirect('/users');
     })

@@ -1,53 +1,68 @@
 var db = require('../db');
 var shortid = require('shortid');
+var User = require('../models/user.model');
+var Book = require('../models/book.model');
+var Transaction = require('../models/transaction.model');
 
 // Index
-module.exports.index = function(req, res) {
-    var userTran = db.get('trans').value()
-    var newArr = userTran.filter(user => {
-        return user.id === req.signedCookies.userId;
-    });
+module.exports.index =async function(req, res) {
+    var userTran = await Transaction.find({userId: req.signedCookies.userId});
+    console.log(userTran);
     // Pagination
-    var page = parseInt(req.query.page)||1; //n (Trang thu n)
-    var perPage = 5; //x (So san pahm trong 1 trang)
-    //start = (n - 1) * x;
-    var start = (page - 1) * perPage;
-    //end = (n - 1) * x + x = n * x;
-    var end = page * perPage;
-    var arr = newArr.slice(start, end);
+    // var page = parseInt(req.query.page)||1; //n (Trang thu n)
+    // var perPage = 5; //x (So san pahm trong 1 trang)
+    // //start = (n - 1) * x;
+    // var start = (page - 1) * perPage;
+    // //end = (n - 1) * x + x = n * x;
+    // var end = page * perPage;
+    // var arr = userTran.slice(start, end);
     res.render('transactions/index', {
-        trans: arr
+        trans: userTran
     });
 };
 
 // Create
-module.exports.create = function(req, res) {
-    var user = db.get('users').find({id: req.signedCookies.userId}).value()
+module.exports.create = async function(req, res) {
+    var user = await User.findById({_id: req.signedCookies.userId});
+    var books = await Book.find();
     res.render('transactions/create', {
         users: [user],
-        books: db.get('books').value()
+        books: books
     });
 };
 
-module.exports.postCreate = function(req, res) {
-    req.body.id = req.signedCookies.userId;
-    req.body.idBorrowed = shortid.generate();
-    req.body.isComplete = "false";
-    db.get('trans').push(req.body).write();
+module.exports.postCreate = async function(req, res) {
+    // req.body.id = req.signedCookies.userId;
+    // req.body.idBorrowed = shortid.generate();
+    // req.body.isComplete = "false";
+    // db.get('trans').push(req.body).write();
+    // res.redirect('/transactions');
+
+    var newTran = new Transaction({
+        bookName: req.body.bookName,
+        userName: req.body.userName,
+        userId: req.signedCookies.userId,
+        borrowedId: shortid.generate(),
+        isCompleted: "false"
+    })
+
+    await newTran.save();
     res.redirect('/transactions');
+
+
 };
 
 // Delete
-module.exports.delete = function(req, res) {
+module.exports.delete =async function(req, res) {
     var id = req.params.id;
-    db.get('trans').remove({idBorrowed: id}).write();
+    await Transaction.remove({borrowedId: id});
     res.redirect('/transactions');
 };
 
 // Complete
-module.exports.complete = function(req, res) {
+module.exports.complete = async function(req, res) {
     var id = req.params.id;
-    db.get('trans').find({idBorrowed: id}).assign({isComplete: "true"}).write(); 
+    await Transaction.findOneAndUpdate({borrowedId: id}, {$set: {isCompleted: "true"}});
     res.redirect('/transactions');
 };
 

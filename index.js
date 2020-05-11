@@ -15,6 +15,8 @@ var transactionRoute = require('./routes/transaction.route');
 var authRoute = require('./routes/auth.route');
 var productRoute = require('./routes/product.route');
 var cartRoute = require('./routes/cart.route');
+var apiProductRoute = require('./api/routes/product.route');
+var apiAuthRoute = require('./api/routes/auth.route');
 
 var authMiddleware = require('./middlewares/auth.middleware');
 var productMiddleware = require('./middlewares/product.middleware');
@@ -45,5 +47,8 @@ app.use('/auth', authRoute);
 // check countCart.middleware if use /products
 app.use('/products',productMiddleware.countPage, productRoute);
 app.use('/cart', cartRoute);
+app.use('/api/products', apiProductRoute);
+app.use('/api/login', apiAuthRoute);
+
 
 app.listen(port);

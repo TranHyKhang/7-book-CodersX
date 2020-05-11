@@ -7,22 +7,22 @@ block content
         tr
             th User
             th Book Borrowed
-        //- each tran in trans
-        //-     tr
-        //-         td=tran.userName
-        //-         td=tran.bookName
-        //-         td     
-        //-             a(class="btn btn-primary mt-2", href="/transactions/" + tran.idBorrowed + "/complete") Complete
-        //-         td
-        //-             a(class="btn btn-primary mt-2", href="/transactions/" + tran.idBorrowed + "/delete") Delete
-        
-        each user in users
+        each tran in trans
             tr
-                td=user.name
-                    each book in books
-                        td=book.name
-                        td
-                            img(src=book.coverUrl, width='64')
+                td=tran.userName
+                td=tran.bookName
+                td     
+                    a(class="btn btn-primary mt-2", href="/transactions/" + tran.borrowedId + "/complete") Complete
+                td
+                    a(class="btn btn-primary mt-2", href="/transactions/" + tran.borrowedId + "/delete") Delete
+        
+        //- each user in users
+        //-     tr
+        //-         td=user.name
+        //-             each book in books
+        //-                 td=book.name
+        //-                 td
+        //-                     img(src=book.coverUrl, width='64')
 
         nav(aria-label='Page navigation example')
             ul.pagination.justify-content-end
