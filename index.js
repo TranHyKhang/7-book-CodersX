@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
 
 const port = 3000;
@@ -15,8 +15,13 @@ var transactionRoute = require('./routes/transaction.route');
 var authRoute = require('./routes/auth.route');
 var productRoute = require('./routes/product.route');
 var cartRoute = require('./routes/cart.route');
+
+// RESTful API
 var apiProductRoute = require('./api/routes/product.route');
 var apiAuthRoute = require('./api/routes/auth.route');
+var apiTransactionRoute = require('./api/routes/transaction.route');
+var apiBookRoute = require('./api/routes/book.route');
+var apiUserRoute = require('./api/routes/user.route');
 
 var authMiddleware = require('./middlewares/auth.middleware');
 var productMiddleware = require('./middlewares/product.middleware');
@@ -47,8 +52,12 @@ app.use('/auth', authRoute);
 // check countCart.middleware if use /products
 app.use('/products',productMiddleware.countPage, productRoute);
 app.use('/cart', cartRoute);
+
+// RESTful API
 app.use('/api/products', apiProductRoute);
 app.use('/api/login', apiAuthRoute);
-
+app.use('/api/transactions', apiTransactionRoute);
+app.use('/api/books', apiBookRoute);
+app.use('/api/user', apiUserRoute);
 
 app.listen(port);

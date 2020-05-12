@@ -18,8 +18,8 @@ module.exports.login = function(req, res) {
 module.exports.postLogin = async function(req, res) {
     var email = req.body.email; 
     var password = req.body.password;
-    var user = await User.findOne({email});
-    console.log(user._doc.wrongLoginCount)
+    var user = await User.findOne({email: email});
+    // console.log(user._doc.wrongLoginCount)
     if(!user) {
         res.render('auth/login', {
             errors: [
@@ -34,8 +34,10 @@ module.exports.postLogin = async function(req, res) {
         if(!result) {
             var count = user._doc.wrongLoginCount;
             count++;
-            console.log(count)
-            await User.updateOne({email: email},{$set: {wrongLoginCount: count}});
+            // console.log(count)
+            // await User.updateOne({email: email},{$set: {wrongLoginCount: count}});
+            user._doc.wrongLoginCount = count;
+            user.save();
             
             if(count >= 4) {
                 res.send('Nhap sai qua nhieu lan!!');
