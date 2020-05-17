@@ -4,10 +4,10 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
+mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true});
 
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 // var db = require('./db');
 var bookRoute = require('./routes/book.route');
 var userRoute = require('./routes/user.route');
