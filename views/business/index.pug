@@ -1,0 +1,30 @@
+extends ../layouts/common
+
+block content
+    h1 My Books
+    a(class="btn btn-primary mb-2", href="/shops/"+ id +"/books/create") New book
+    form(action="/transactions", method="POST", enctype="multipart/form-data")
+        button(class="btn btn-primary ml-2") Borrow
+    div.mr-3.float-right
+        span Cart
+        span &nbsp
+        span= "(" + haha + ")"
+    form.ml-auto(action="/books/search", method="GET", class="d-flex")
+        input.form-control(type="text", name="q")
+        button(class="btn btn-primary ml-2") Search
+    table.table
+        tr
+            th Book Name  
+        each item in business
+            tr
+                td
+                    img(src=item._doc.bookCover, width="64")
+                td= item.bookName
+                td
+                    a(class="btn btn-primary mt-2", href="/shops/" + item._id + "/books/delete") Delete
+                td
+                    a(class="btn btn-primary mt-2", href="/shops/" + item._id + "/books/update") Update
+                //- td
+                //-     a(class="btn btn-primary mt-2", href="/books/cart/add/" + book.id) Add
+
+    a(class="btn btn-primary mt-2", href="/") Back

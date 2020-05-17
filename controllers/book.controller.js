@@ -79,5 +79,5 @@ module.exports.addToCart = function(req, res) {
       .set('cart.' + bookId, count + 1)
       .write();
     
-      res.redirect('/books');
+    res.redirect('/books');
 }

@@ -15,6 +15,7 @@ var transactionRoute = require('./routes/transaction.route');
 var authRoute = require('./routes/auth.route');
 var productRoute = require('./routes/product.route');
 var cartRoute = require('./routes/cart.route');
+var businessRoute = require('./routes/business.route');
 
 // RESTful API
 var apiProductRoute = require('./api/routes/product.route');
@@ -52,6 +53,7 @@ app.use('/auth', authRoute);
 // check countCart.middleware if use /products
 app.use('/products',productMiddleware.countPage, productRoute);
 app.use('/cart', cartRoute);
+app.use('/shops', businessRoute);
 
 // RESTful API
 app.use('/api/products', apiProductRoute);

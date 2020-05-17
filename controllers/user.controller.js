@@ -1,26 +1,30 @@
 var shortid = require('shortid');
 var User = require('../models/user.model');
-// var db = require('../db');
-// var md5 = require('md5');
+
 var bcrypt = require('bcrypt');
 var cloudinary = require('cloudinary').v2;
 cloudinary.config({
     enviroment_variable: process.env.CLOUDINARY_URL
-})
+});
 var defaultAvatar = cloudinary.url('default_avatar_fw7ujs.png');
+
 // Index
-module.exports.index = async function(req, res) {
-    var userMatched = await User.findOne({_id: req.signedCookies.userId});
-    var user = await User.find();
-    if(userMatched.isAdmin == "false"){
-        res.render('users/index', {
-            users: [userMatched]
-        });
-    } else {
-        res.render('users/index', {
-            users: user
-        })
-    }
+module.exports.index = async function(req, res, next) {
+    try{
+        var userMatched = await User.findOne({_id: req.signedCookies.userId});
+        var user = await User.find();
+        if(userMatched.isAdmin == "false"){
+            res.render('users/index', {
+                users: [userMatched]
+            });
+        } else {
+            res.render('users/index', {
+                users: user
+            })
+        }
+    } catch(err) {
+        next(err);
+    };  
 };
 
 // // Count cookie
@@ -35,53 +39,24 @@ module.exports.create = function(req, res) {
 };
 
 module.exports.postCreate = function(req, res) {  
-    //req.body.avatar = req.file.path.split("\\").slice(1).join("/");  
-    bcrypt.hash(req.body.password, 10, async(err, hash) => {
-        req.body.id = shortid.generate();
+    bcrypt.hash(req.body.password, 10, async(err, hash) => { 
         req.body.password = hash;
         req.body.isAdmin = "false";
-        var file = req.file.path.split("\\").join("/");
-        var rs = await cloudinary.uploader.upload(file, 
-            { public_id: "avatarCodersX/" + req.body.id } );
-        req.body.avatar = await cloudinary.url(rs.public_id);
-        db.get("users")
-            .push(req.body)
-            .write();
-        // var success = "Tạo tài khoản thành công!";
-        // res.render("./users/create", {
-        //     success: success
-        // });
+        // var file = req.file.path.split("\\").join("/");
+        // var rs = await cloudinary.uploader.upload(file, 
+        //     { public_id: "avatarCodersX/" + req._id});
+        // req.body.avatar = await cloudinary.url(rs.public_id);
+        await User.create(req.body);
+        
         res.redirect('/users')
-    }); 
-    
-    
+    });    
 };
-
-// bcrypt.hash(req.body.password, 10, function(err, hash) {
-//     // Store hash in your password DB.
-//     req.body.password = hash;
-//     req.body.id = shortid.generate();
-//     req.body.isAdmin = "false";
-//     var file = req.file.path.split("\\").join("/");
-//     var rs = cloudinary.uploader.upload(file, {
-//         public_id:"avatarCodesX"
-//     });
-//     var a;
-//     rs.then(function(data) {
-//         console.log(data);
-//         a = data.url;
-//         return  data.url;
-//     } );
-//     console.log(a);
-//     db.get('users').push(req.body).write();
-    
-// });
-// res.redirect('/users');
-
+ 
 // Search
-module.exports.search = function(req, res) {
+module.exports.search = async function(req, res) {
     var q = req.query.q;
-    var matchedUser = db.get('users').value().filter(user => {
+    var user = await User.find();
+    var matchedUser = user.filter(user => {
         return user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
     });
     res.render('users/index', {
@@ -90,58 +65,44 @@ module.exports.search = function(req, res) {
 };
 
 // Delete
-module.exports.delete = function(req, res) {
-    var id = req.params.id;
-    db.get('users').remove({id: id}).write();
+module.exports.delete = async function(req, res) {
+    await User.remove({_id: req.params.id});
     res.redirect('/users');
 };
 
 // Update
-module.exports.update = function(req, res) {
+module.exports.update = async function(req, res) {
     var id = req.params.id;
+    var user = await User.findOne({
+        _id: id,
+        user: user
+    });
     res.render('users/update', {id});
 };
 
-module.exports.postUpdate = function(req, res) {
-    db.get('users').find({id: req.body.id}).assign({name: req.body.name}).write();
+module.exports.postUpdate = async function(req, res) {
+    await User.findByIdAndUpdate({_id: req.body.id}, {name: req.body.name});
     res.redirect('/users');
 };
 
 // avatar
-module.exports.changeAvatar = function(req, res) {
+module.exports.changeAvatar = async function(req, res) {
     var idUser = req.params.id;
-    var matchedUser = db.get('users').find({ id: idUser }).value();
+    var matchedUser = await User.findOne({_id: idUser});
     res.render('./users/avatar', {
         user: matchedUser,
         avatar: matchedUser.avatar || defaultAvatar
     });
-    // var id = req.params.id;
-    // res.render('users/avatar', {id});
 }
 
 module.exports.postChangeAvatar = async function(req, res) {
     var file = req.file.path.split('\\').join('/');
-    var matchedUser = db.get('users').find({ id: req.body.id }).value();
-    await cloudinary.uploader.destroy("avatarCodersX/" + req.body.id );
+    await cloudinary.uploader.destroy("avatarCodersX/" + req.body.id, (err, result) => {
+        console.log(result, err);
+    });
     var rs = await cloudinary.uploader.upload(file, { public_id: "avatarCodersX/" + req.body.id })
     var newAvatar = await cloudinary.url(rs.public_id);
     console.log(newAvatar);
-    db.get('users')
-        .find({ id: req.body.id })
-        .assign({ avatar: newAvatar })
-        .write();
+    await User.findByIdAndUpdate({_id: req.body.id}, {$set: {avatar: newAvatar}});
     res.redirect('/users/' + req.body.id + '/update');
-    // res.render('./users/update', {
-    //     users: matchedUser,
-    //     avatar: matchedUser.avatar || defaultAvatar
-    // });
-
-    // var id = req.params.id;
-    // var file = req.file.path.split('\\').join('/');
-    // var rs = await cloudinary.uploader.upload(file, {
-    //     public_id: "avatarCodersX/" + req.body.id
-    // });
-    // req.body.avatar = await cloudinary.url(rs.public_id);
-    // db.get('users').find({id: id}).assign({avatar: req.body.avatar}).write();
-    // res.render('users/update');
 }

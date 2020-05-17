@@ -1,0 +1,7 @@
+extends ../layouts/common
+
+block content
+    form(action="/shops/books/cover", method="POST", enctype="multipart/form-data")
+        input.form-control(type="text", name="id", value=id)
+        input.form-control-file(type="file", name="bookCover")
+        button(class="btn btn-primary mt-2") Submit

@@ -1,0 +1,10 @@
+extends ../layouts/common
+
+block content
+    h1 New title
+    form(action="/shops/books/update", method="POST")
+        input(type="text", name="id", value=id)
+        input(type="text", name="bookName")
+        button(class="btn btn-primary ml-2") Change
+    
+    a.btn.btn-primary(href="/shops/" + user._id + "/books/cover") change book cover
